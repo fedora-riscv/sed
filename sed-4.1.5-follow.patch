@@ -71,10 +71,10 @@ diff -Burp sed-4.1.5-orig/lib/utils.c sed-4.1.5-follow/lib/utils.c
 +	    buf2 [err] = '\0';
 +
 +	  /* need to handle relative paths with care */
-+	  if (buf2[0] != '/')
-+	    {
 +	      dir = dirname (buf);    // dir part of orig path
 +	      int len = strlen (dir); // orig path len
++	  if (buf2[0] != '/' && len != 1 && dir[0] != '.')
++	    {
 +	      buf[len] = '/';
 +	      strncpy (buf+len+1, buf2, bufsize - len - 1);
 +	      if (buf[bufsize-1] != 0)
