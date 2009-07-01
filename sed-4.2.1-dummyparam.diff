@@ -1,0 +1,25 @@
+--- sed-4.2.1/sed/sed.c	2009-06-03 21:10:51.000000000 +0200
++++ sed-4.2.1_copy/sed/sed.c	2009-06-30 14:12:28.000000000 +0200
+@@ -174,11 +174,11 @@ main(argc, argv)
+   char **argv;
+ {
+ #ifdef REG_PERL
+-#define SHORTOPTS "bsnrRuEe:f:l:i::V:"
++#define SHORTOPTS "cbsnrRuEe:f:l:i::V:"
+ #else
+-#define SHORTOPTS "bsnruEe:f:l:i::V:"
++#define SHORTOPTS "cbsnruEe:f:l:i::V:"
+ #endif
+-
++/* -c --copy is just a dummy param to keep backward compatibility */
+   static struct option longopts[] = {
+     {"binary", 0, NULL, 'b'},
+     {"regexp-extended", 0, NULL, 'r'},
+@@ -196,6 +196,7 @@ main(argc, argv)
+     {"unbuffered", 0, NULL, 'u'},
+     {"version", 0, NULL, 'v'},
+     {"help", 0, NULL, 'h'},
++    {"copy", 0, NULL, 'c'},
+ #ifdef ENABLE_FOLLOW_SYMLINKS
+     {"follow-symlinks", 0, NULL, 'F'},
+ #endif

@@ -5,16 +5,14 @@
 
 Summary: A GNU stream text editor
 Name: sed
-Version: 4.1.5
-Release: 12%{?dist}
+Version: 4.2.1
+Release: 1%{?dist}
 License: GPLv2+
 Group: Applications/Text
 URL: http://sed.sourceforge.net/
 Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.gz
 Source1: http://sed.sourceforge.net/sedfaq.txt
-Patch0: sed-4.1.5-utf8performance.patch
-Patch1: sed-4.1.5-follow.patch
-Patch2: sed-4.1.5-copy.patch
+Patch0: sed-4.2.1-dummyparam.diff
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: glibc-devel
 Requires(post): /sbin/install-info
@@ -30,8 +28,6 @@ specified in a script file or from the command line.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 %build
 %configure --without-included-regex
@@ -70,6 +66,12 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man*/*
 
 %changelog
+* Mon Jun 29 2009  Jiri Moskovcak <jmoskovc@redhat.com> 4.2.1-1
+- new version
+- obsoletes previous patches
+- added patch to maintain backwards compatibility for scripts using -c/--copy
+- Resolves: #502934
+
 * Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.1.5-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
