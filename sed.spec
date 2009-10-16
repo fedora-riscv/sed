@@ -6,7 +6,7 @@
 Summary: A GNU stream text editor
 Name: sed
 Version: 4.2.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2+
 Group: Applications/Text
 URL: http://sed.sourceforge.net/
@@ -14,7 +14,7 @@ Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.bz2
 Source1: http://sed.sourceforge.net/sedfaq.txt
 Patch0: sed-4.2.1-dummyparam.diff
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires: glibc-devel
+BuildRequires: glibc-devel, libselinux-devel
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
 
@@ -48,12 +48,14 @@ rm -f ${RPM_BUILD_ROOT}/%{_infodir}/dir
 %find_lang %{name}
 
 %post
-/sbin/install-info %{_infodir}/sed.info.gz %{_infodir}/dir || :
+/sbin/install-info %{_infodir}/sed.info.gz %{_infodir}/dir || &> /dev/null
+:
 
 %preun
 if [ $1 = 0 ]; then
-   /sbin/install-info --delete %{_infodir}/sed.info.gz %{_infodir}/dir || :
+   /sbin/install-info --delete %{_infodir}/sed.info.gz %{_infodir}/dir || &> /dev/null
 fi
+:
 
 %clean
 rm -rf ${RPM_BUILD_ROOT}
@@ -66,6 +68,10 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man*/*
 
 %changelog
+* Fri Oct 16 2009 Jiri Moskovcak <jmoskovc@redhat.com> 4.2.1-4
+- added libselinux-devel to buildrequires rhbz#514182
+- fixed problem with --excludedocs rhbz#515913
+
 * Tue Aug 11 2009 Ville Skyttä <ville.skytta@iki.fi> - 4.2.1-3
 - Use bzipped upstream tarball.
 
