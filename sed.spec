@@ -6,13 +6,14 @@
 Summary: A GNU stream text editor
 Name: sed
 Version: 4.2.1
-Release: 4%{?dist}
-License: GPLv2+
+Release: 5%{?dist}
+License: GPLv3+
 Group: Applications/Text
 URL: http://sed.sourceforge.net/
 Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.bz2
 Source1: http://sed.sourceforge.net/sedfaq.txt
-Patch0: sed-4.2.1-dummyparam.diff
+Patch0: sed-4.2.1-copy.patch
+Patch1: sed-4.2.1-makecheck.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: glibc-devel, libselinux-devel
 Requires(post): /sbin/install-info
@@ -28,6 +29,7 @@ specified in a script file or from the command line.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %configure --without-included-regex
@@ -68,6 +70,12 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man*/*
 
 %changelog
+* Wed Mar 17 2010 Jan Görig <jgorig@redhat.com> 4.2.1-5
+- fixed make check on non UTF-8 locale - upstream patch rhbz#550731
+- readded -c option (thanks Paolo Bonzini) rhbz#566455
+- removed previous -c dummy patch
+- changed license to GPLv3+
+
 * Fri Oct 16 2009 Jiri Moskovcak <jmoskovc@redhat.com> 4.2.1-4
 - added libselinux-devel to buildrequires rhbz#514182
 - fixed problem with --excludedocs rhbz#515913
