@@ -6,7 +6,7 @@
 Summary: A GNU stream text editor
 Name: sed
 Version: 4.2.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPLv3+
 Group: Applications/Text
 URL: http://sed.sourceforge.net/
@@ -72,6 +72,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man*/*
 
 %changelog
+* Tue Jul 12 2011 Vojtech Vitek (V-Teq) <vvitek@redhat.com> - 4.2.1-7
 - avoid silent data loss when an input line is 2^31 bytes or longer
   Resolves: #720438
 
