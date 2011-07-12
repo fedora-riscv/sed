@@ -14,6 +14,7 @@ Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.bz2
 Source1: http://sed.sourceforge.net/sedfaq.txt
 Patch0: sed-4.2.1-copy.patch
 Patch1: sed-4.2.1-makecheck.patch
+Patch2: sed-4.2.1-data-loss.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: glibc-devel, libselinux-devel
 Requires(post): /sbin/install-info
@@ -30,6 +31,7 @@ specified in a script file or from the command line.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %configure --without-included-regex
@@ -70,6 +72,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man*/*
 
 %changelog
+- avoid silent data loss when an input line is 2^31 bytes or longer
+  Resolves: #720438
+
 * Wed Feb 09 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.2.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
