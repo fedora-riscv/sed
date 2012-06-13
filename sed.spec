@@ -6,7 +6,7 @@
 Summary: A GNU stream text editor
 Name: sed
 Version: 4.2.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPLv3+
 Group: Applications/Text
 URL: http://sed.sourceforge.net/
@@ -15,6 +15,7 @@ Source1: http://sed.sourceforge.net/sedfaq.txt
 Patch0: sed-4.2.1-copy.patch
 Patch1: sed-4.2.1-makecheck.patch
 Patch2: sed-4.2.1-data-loss.patch
+Patch3: sed-4.2.1-fix-0x26-on-RHS.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: glibc-devel, libselinux-devel
 Requires(post): /sbin/install-info
@@ -32,6 +33,7 @@ specified in a script file or from the command line.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %configure --without-included-regex
@@ -72,6 +74,10 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man*/*
 
 %changelog
+* Wed Jun 13 2012 Martin Briza <mbriza@redhat.com> - 4.2.1-9
+- Backported commit from upstream to fix treating "x26" as "&" character
+  Resolves: #812067
+
 * Sat Jan 14 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.2.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
