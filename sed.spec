@@ -74,7 +74,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man*/*
 
 %changelog
-* Wed Jun 13 2012 Martin Briza <mbriza@redhat.com> - 4.2.1-9
+* Wed Jun 13 2012 Martin Briza <mbriza@redhat.com> - 4.2.1-8
 - Backported commit from upstream to fix treating "x26" as "&" character
   Resolves: #812067
 
