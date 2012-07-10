@@ -74,6 +74,10 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man*/*
 
 %changelog
+* Tue Jul 10 2012 Martin Briza <mbriza@redhat.com> - 4.2.1-10
+- Fixed the readded -c option rhbz#832855
+  Resolves: #832855
+
 * Wed Jun 13 2012 Martin Briza <mbriza@redhat.com> - 4.2.1-9
 - Backported commit from upstream to fix treating "x26" as "&" character
   Resolves: #812067
