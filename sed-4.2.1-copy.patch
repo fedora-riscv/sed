@@ -29,7 +29,7 @@ index af8c4d2..c05b418 100644
          {
            char *backup_file_name = get_backup_file_name(target_name);
 -	  ck_rename (target_name, backup_file_name, input->out_file_name);
-+	  (copy_instead_of_rename?ck_fcmove:ck_rename)
++	  (copy_instead_of_rename?ck_fccopy:ck_rename)
 +            (target_name, backup_file_name, input->out_file_name);
            free (backup_file_name);
  	}
@@ -135,7 +135,7 @@ index 241ef1d..ebe6030 100644
  
  #include "utils.h"
  #include "pathmax.h"
-@@ -408,33 +409,99 @@ follow_symlink(const char *fname)
+@@ -408,33 +409,109 @@ follow_symlink(const char *fname)
    return fname;
  #endif /* ENABLE_FOLLOW_SYMLINKS */
  }
@@ -238,12 +238,22 @@ index 241ef1d..ebe6030 100644
  
 +/* Attempt to copy file contents between the files. */
 +void
-+ck_fcmove (from, to, unlink_if_fail)
++ck_fccopy (from, to, unlink_if_fail)
 +  const char *from, *to;
 +  const char *unlink_if_fail;
 +{
 +  if (!_unlink_if_fail (_copy (from, to), unlink_if_fail))
 +    panic (_("cannot copy %s to %s: %s"), from, to, strerror (errno));
++}
++
++/* Copy contents between files, and then unlink the source. */
++void
++ck_fcmove (from, to, unlink_if_fail)
++  const char *from, *to;
++  const char *unlink_if_fail;
++{
++  ck_fccopy (from, to, unlink_if_fail);
++  ck_unlink (from);
 +}
  
  
@@ -252,10 +262,11 @@ diff --git a/sed/utils.h b/sed/utils.h
 index d3f431d..b915596 100644
 --- a/sed/utils.h
 +++ b/sed/utils.h
-@@ -32,6 +32,7 @@ const char *follow_symlink P_((const char *path));
+@@ -32,6 +32,8 @@ const char *follow_symlink P_((const char *path));
  size_t ck_getline P_((char **text, size_t *buflen, FILE *stream));
  FILE * ck_mkstemp P_((char **p_filename, char *tmpdir, char *base));
  void ck_rename P_((const char *from, const char *to, const char *unlink_if_fail));
++void ck_fccopy P_((const char *from, const char *to, const char *unlink_if_fail));
 +void ck_fcmove P_((const char *from, const char *to, const char *unlink_if_fail));
  
  VOID *ck_malloc P_((size_t size));
