@@ -6,7 +6,7 @@
 Summary: A GNU stream text editor
 Name: sed
 Version: 4.2.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPLv3+
 Group: Applications/Text
 URL: http://sed.sourceforge.net/
@@ -75,7 +75,7 @@ rm -rf ${RPM_BUILD_ROOT}
 
 %changelog
 * Tue Jul 10 2012 Martin Briza <mbriza@redhat.com> - 4.2.1-9
-- Fixed the readded -c option rhbz#832855
+- Fixed the readded -c option
   Resolves: #832855
 
 * Wed Jun 13 2012 Martin Briza <mbriza@redhat.com> - 4.2.1-8
