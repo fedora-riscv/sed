@@ -3,7 +3,7 @@
 Summary: A GNU stream text editor
 Name: sed
 Version: 4.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 Group: Applications/Text
 URL: http://sed.sourceforge.net/
@@ -73,6 +73,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man*/*
 
 %changelog
+* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
 * Thu Feb 09 2017  Jakub Martisko <jamartis@redhat.com> - 4.4-1
 - new version 4.4
 - removed COPYING.DOC license which is no longer in upstream
