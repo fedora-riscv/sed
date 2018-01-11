@@ -3,15 +3,16 @@
 Summary: A GNU stream text editor
 Name: sed
 Version: 4.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 Group: Applications/Text
 URL: http://sed.sourceforge.net/
 Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.xz
 Source1: http://sed.sourceforge.net/sedfaq.txt
 Patch0: sed-4.2.2-binary_copy_args.patch
+Patch1: sed-selinux.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires: glibc-devel, libselinux-devel, libacl-devel
+BuildRequires: glibc-devel, libselinux-devel, libacl-devel, automake, autoconf
 BuildRequires: perl-Getopt-Long
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
@@ -31,6 +32,7 @@ specified in a script file or from the command line.
 %prep
 %setup -q
 %patch0 -p1 -b .copy
+%patch1 -p1 -b .selinux
 
 %build
 %configure --without-included-regex
@@ -73,6 +75,12 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man*/*
 
 %changelog
+* Thu Jan 11 2018  Jakub Martisko <jamartis@redhat.com> - 4.4-2
+- When editing file inplace, the SELinux context should
+  be based on the link instead of the target file itself.
+  --follow-symlinks option remains unchanged
+- Resolves: #1401442
+
 * Thu Feb 09 2017  Jakub Martisko <jamartis@redhat.com> - 4.4-1
 - new version 4.4
 - removed COPYING.DOC license which is no longer in upstream
