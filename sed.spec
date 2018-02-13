@@ -11,7 +11,6 @@ Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.xz
 Source1: http://sed.sourceforge.net/sedfaq.txt
 Patch0: sed-4.2.2-binary_copy_args.patch
 Patch1: sed-selinux.patch
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: glibc-devel, libselinux-devel, libacl-devel, automake, autoconf
 BuildRequires: perl-Getopt-Long
 Requires(post): /sbin/install-info
