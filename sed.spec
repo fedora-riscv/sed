@@ -61,9 +61,6 @@ if [ $1 = 0 ]; then
 fi
 :
 
-%clean
-rm -rf ${RPM_BUILD_ROOT}
-
 %files -f %{name}.lang
 %defattr(-,root,root)
 %{!?_licensedir:%global license %%doc}
