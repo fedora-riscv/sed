@@ -3,7 +3,7 @@
 Summary: A GNU stream text editor
 Name: sed
 Version: 4.4
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPLv3+
 Group: Applications/Text
 URL: http://sed.sourceforge.net/
@@ -11,6 +11,9 @@ Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.xz
 Source1: http://sed.sourceforge.net/sedfaq.txt
 Patch0: sed-4.2.2-binary_copy_args.patch
 Patch1: sed-selinux.patch
+#Build failure with glibc-2.28
+#https://lists.gnu.org/r/bug-gnulib/2018-03/msg00000.html
+Patch2: sed-gnulib.patch
 BuildRequires: glibc-devel, libselinux-devel, libacl-devel, automake, autoconf, gcc
 BuildRequires: perl-Getopt-Long
 Requires(post): /sbin/install-info
@@ -32,6 +35,7 @@ specified in a script file or from the command line.
 %setup -q
 %patch0 -p1 -b .copy
 %patch1 -p1 -b .selinux
+%patch2 -p1 -b .gnulib
 
 %build
 %configure --without-included-regex
@@ -71,6 +75,9 @@ fi
 %{_mandir}/man*/*
 
 %changelog
+* Thu Mar 08 2018 Jakub Martiso <jamartis@redhat.com> - 4.4-7
+- Fix build failure with glibc-2.28
+
 * Thu Mar 08 2018 Jakub Martiso <jamartis@redhat.com> - 4.4-6
 - Add gcc to BuildRequires
 
