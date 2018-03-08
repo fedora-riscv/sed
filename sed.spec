@@ -3,7 +3,7 @@
 Summary: A GNU stream text editor
 Name: sed
 Version: 4.4
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv3+
 Group: Applications/Text
 URL: http://sed.sourceforge.net/
@@ -11,7 +11,7 @@ Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.xz
 Source1: http://sed.sourceforge.net/sedfaq.txt
 Patch0: sed-4.2.2-binary_copy_args.patch
 Patch1: sed-selinux.patch
-BuildRequires: glibc-devel, libselinux-devel, libacl-devel, automake, autoconf
+BuildRequires: glibc-devel, libselinux-devel, libacl-devel, automake, autoconf, gcc
 BuildRequires: perl-Getopt-Long
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
@@ -71,6 +71,9 @@ fi
 %{_mandir}/man*/*
 
 %changelog
+* Thu Mar 08 2018 Jakub Martiso <jamartis@redhat.com> - 4.4-6
+- Add gcc to BuildRequires
+
 * Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
