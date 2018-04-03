@@ -2,15 +2,15 @@
 
 Summary: A GNU stream text editor
 Name: sed
-Version: 4.4
-Release: 7%{?dist}
+Version: 4.5
+Release: 1%{?dist}
 License: GPLv3+
 Group: Applications/Text
 URL: http://sed.sourceforge.net/
 Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.xz
 Source1: http://sed.sourceforge.net/sedfaq.txt
 Patch0: sed-4.2.2-binary_copy_args.patch
-Patch1: sed-selinux.patch
+#Patch1: sed-selinux.patch
 #Build failure with glibc-2.28
 #https://lists.gnu.org/r/bug-gnulib/2018-03/msg00000.html
 Patch2: sed-gnulib.patch
@@ -34,8 +34,8 @@ specified in a script file or from the command line.
 %prep
 %setup -q
 %patch0 -p1 -b .copy
-%patch1 -p1 -b .selinux
-%patch2 -p1 -b .gnulib
+#%patch1 -p1 -b .selinux
+#%patch2 -p1 -b .gnulib
 
 %build
 %configure --without-included-regex
@@ -75,10 +75,14 @@ fi
 %{_mandir}/man*/*
 
 %changelog
-* Thu Mar 08 2018 Jakub Martiso <jamartis@redhat.com> - 4.4-7
+* Tue Apr 03 2018 Jakub Martisko <jamartis@redhat.com> - 4.5-1
+- Rebase to 4.5
+- Drop patches from 4.4-4 and 4.4-7
+
+* Thu Mar 08 2018 Jakub Martisko <jamartis@redhat.com> - 4.4-7
 - Fix build failure with glibc-2.28
 
-* Thu Mar 08 2018 Jakub Martiso <jamartis@redhat.com> - 4.4-6
+* Thu Mar 08 2018 Jakub Martisko <jamartis@redhat.com> - 4.4-6
 - Add gcc to BuildRequires
 
 * Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-5
