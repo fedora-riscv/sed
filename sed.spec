@@ -66,7 +66,6 @@ fi
 :
 
 %files -f %{name}.lang
-%defattr(-,root,root)
 %{!?_licensedir:%global license %%doc}
 %license COPYING 
 %doc BUGS NEWS THANKS README AUTHORS sedfaq.txt.gz
