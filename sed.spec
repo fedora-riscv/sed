@@ -16,8 +16,6 @@ Patch0: sed-4.2.2-binary_copy_args.patch
 Patch2: sed-gnulib.patch
 BuildRequires: glibc-devel, libselinux-devel, libacl-devel, automake, autoconf, gcc
 BuildRequires: perl-Getopt-Long
-Requires(post): /sbin/install-info
-Requires(preun): /sbin/install-info
 
 Provides: /bin/sed
 
@@ -55,23 +53,13 @@ rm -f ${RPM_BUILD_ROOT}/%{_infodir}/dir
 
 %find_lang %{name}
 
-%post
-/sbin/install-info %{_infodir}/sed.info.gz %{_infodir}/dir || &> /dev/null
-:
-
-%preun
-if [ $1 = 0 ]; then
-   /sbin/install-info --delete %{_infodir}/sed.info.gz %{_infodir}/dir || &> /dev/null
-fi
-:
-
 %files -f %{name}.lang
 %{!?_licensedir:%global license %%doc}
 %license COPYING 
 %doc BUGS NEWS THANKS README AUTHORS sedfaq.txt.gz
 %{_bindir}/sed
-%{_infodir}/*.info*
-%{_mandir}/man*/*
+%{_infodir}/sed.info*
+%{_mandir}/man1/sed.1*
 
 %changelog
 * Tue Apr 03 2018 Jakub Martisko <jamartis@redhat.com> - 4.5-1
