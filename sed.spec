@@ -5,7 +5,6 @@ Name: sed
 Version: 4.5
 Release: 2%{?dist}
 License: GPLv3+
-Group: Applications/Text
 URL: http://sed.sourceforge.net/
 Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.xz
 Source1: http://sed.sourceforge.net/sedfaq.txt
