@@ -2,13 +2,14 @@
 
 Summary: A GNU stream text editor
 Name: sed
-Version: 4.5
-Release: 5%{?dist}
+Version: 4.8
+Release: 1%{?dist}
 License: GPLv3+
 URL: http://sed.sourceforge.net/
 Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.xz
 Source1: http://sed.sourceforge.net/sedfaq.txt
-Patch0: sed-4.2.2-binary_copy_args.patch
+Patch0: sed-b-flag.patch
+Patch1: sed-c-flag.patch
 #Patch1: sed-selinux.patch
 #Build failure with glibc-2.28
 #https://lists.gnu.org/r/bug-gnulib/2018-03/msg00000.html
@@ -30,9 +31,9 @@ specified in a script file or from the command line.
 
 %prep
 %setup -q
-%patch0 -p1 -b .copy
-#%patch1 -p1 -b .selinux
-#%patch2 -p1 -b .gnulib
+%patch0 -p1
+%patch1 -p1
+#%patch2 -p1
 
 %build
 %configure --without-included-regex
@@ -61,6 +62,10 @@ rm -f ${RPM_BUILD_ROOT}/%{_infodir}/dir
 %{_mandir}/man1/sed.1*
 
 %changelog
+* Tue Feb 11 2020 Jakub Martisko <jamartis@redhat.com> - 4.8-1
+- Rebase to 4.8
+- Refresh the downstream patch and split it into two
+
 * Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
