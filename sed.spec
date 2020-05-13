@@ -16,6 +16,7 @@ Patch1: sed-c-flag.patch
 Patch2: sed-gnulib.patch
 BuildRequires: glibc-devel, libselinux-devel, libacl-devel, automake, autoconf, gcc
 BuildRequires: perl-Getopt-Long
+BuildRequires: perl(FileHandle)
 
 Provides: /bin/sed
 
