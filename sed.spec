@@ -3,7 +3,7 @@
 Summary: A GNU stream text editor
 Name: sed
 Version: 4.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 URL: http://sed.sourceforge.net/
 Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.xz
@@ -38,7 +38,7 @@ specified in a script file or from the command line.
 
 %build
 %configure --without-included-regex
-make %{_smp_mflags}
+%make_build
 install -m 644 -p %{SOURCE1} sedfaq.txt
 gzip -9 sedfaq.txt
 
@@ -49,7 +49,7 @@ echo ====================TESTING END=====================
 
 %install
 rm -rf ${RPM_BUILD_ROOT}
-make DESTDIR=$RPM_BUILD_ROOT install
+%make_install
 rm -f ${RPM_BUILD_ROOT}/%{_infodir}/dir
 
 %find_lang %{name}
@@ -63,6 +63,10 @@ rm -f ${RPM_BUILD_ROOT}/%{_infodir}/dir
 %{_mandir}/man1/sed.1*
 
 %changelog
+* Tue Jul 14 2020 Tom Stellard <tstellar@redhat.com> - 4.8-2
+- Use make macros
+- https://fedoraproject.org/wiki/Changes/UseMakeBuildInstallMacro
+
 * Tue Feb 11 2020 Jakub Martisko <jamartis@redhat.com> - 4.8-1
 - Rebase to 4.8
 - Refresh the downstream patch and split it into two
