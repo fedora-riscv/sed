@@ -3,7 +3,7 @@
 Summary: A GNU stream text editor
 Name: sed
 Version: 4.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 URL: http://sed.sourceforge.net/
 Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.xz
@@ -63,6 +63,9 @@ rm -f ${RPM_BUILD_ROOT}/%{_infodir}/dir
 %{_mandir}/man1/sed.1*
 
 %changelog
+* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
 * Tue Feb 11 2020 Jakub Martisko <jamartis@redhat.com> - 4.8-1
 - Rebase to 4.8
 - Refresh the downstream patch and split it into two
