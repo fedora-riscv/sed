@@ -3,7 +3,7 @@
 Summary: A GNU stream text editor
 Name: sed
 Version: 4.8
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv3+
 URL: http://sed.sourceforge.net/
 Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.xz
@@ -42,7 +42,7 @@ sed -e 's/1729576/EPERM/' \
 
 %build
 %configure --without-included-regex
-make %{_smp_mflags}
+%make_build
 install -m 644 -p %{SOURCE1} sedfaq.txt
 gzip -9 sedfaq.txt
 
@@ -53,7 +53,7 @@ echo ====================TESTING END=====================
 
 %install
 rm -rf ${RPM_BUILD_ROOT}
-make DESTDIR=$RPM_BUILD_ROOT install
+%make_install
 rm -f ${RPM_BUILD_ROOT}/%{_infodir}/dir
 
 %find_lang %{name}
@@ -67,6 +67,9 @@ rm -f ${RPM_BUILD_ROOT}/%{_infodir}/dir
 %{_mandir}/man1/sed.1*
 
 %changelog
+* Mon Aug 03 2020 Jakub Martisko <jamartis@redhat.com> - 4.8-5
+- Use make macros
+
 * Mon Aug 03 2020 Jakub Martisko <jamartis@redhat.com> - 4.8-4
 - Replace some hardcoded constants in the gnulib-testsuite
   ... that caused build failures on arm7
