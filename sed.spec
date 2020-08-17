@@ -3,17 +3,13 @@
 Summary: A GNU stream text editor
 Name: sed
 Version: 4.8
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv3+
 URL: http://sed.sourceforge.net/
 Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.xz
 Source1: http://sed.sourceforge.net/sedfaq.txt
 Patch0: sed-b-flag.patch
 Patch1: sed-c-flag.patch
-#Patch1: sed-selinux.patch
-#Build failure with glibc-2.28
-#https://lists.gnu.org/r/bug-gnulib/2018-03/msg00000.html
-Patch2: sed-gnulib.patch
 BuildRequires: glibc-devel, libselinux-devel, libacl-devel, automake, autoconf, gcc
 BuildRequires: perl-Getopt-Long
 BuildRequires: perl(FileHandle)
@@ -34,7 +30,6 @@ specified in a script file or from the command line.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-#%patch2 -p1
 
 
 sed -e 's/1729576/EPERM/' \
@@ -67,6 +62,9 @@ rm -f ${RPM_BUILD_ROOT}/%{_infodir}/dir
 %{_mandir}/man1/sed.1*
 
 %changelog
+* Mon Aug 17 2020 Jakub Martisko <jamartis@redhat.com> - 4.8-6
+- Minor spec cleanup
+
 * Mon Aug 03 2020 Jakub Martisko <jamartis@redhat.com> - 4.8-5
 - Use make macros
 
