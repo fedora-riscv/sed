@@ -10,6 +10,7 @@ Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.xz
 Source1: http://sed.sourceforge.net/sedfaq.txt
 Patch0: sed-b-flag.patch
 Patch1: sed-c-flag.patch
+BuildRequires: make
 BuildRequires: glibc-devel, libselinux-devel, libacl-devel, automake, autoconf, gcc
 BuildRequires: perl-Getopt-Long
 BuildRequires: perl(FileHandle)
