@@ -3,13 +3,14 @@
 Summary: A GNU stream text editor
 Name: sed
 Version: 4.8
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPLv3+
 URL: http://sed.sourceforge.net/
 Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.xz
 Source1: http://sed.sourceforge.net/sedfaq.txt
 Patch0: sed-b-flag.patch
 Patch1: sed-c-flag.patch
+Patch2: sed-covscan-annotations.patch
 BuildRequires: make
 BuildRequires: glibc-devel, libselinux-devel, libacl-devel, automake, autoconf, gcc
 BuildRequires: perl-Getopt-Long
@@ -31,6 +32,7 @@ specified in a script file or from the command line.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 
 sed -e 's/1729576/EPERM/' \
@@ -63,6 +65,10 @@ rm -f ${RPM_BUILD_ROOT}/%{_infodir}/dir
 %{_mandir}/man1/sed.1*
 
 %changelog
+* Tue Nov 16 2021 Jakub Martisko <jamartis@redhat.com> - 4.8-9
+- Add annotations to disable false positives in the covscan
+- Related: rhbz#1938867
+
 * Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
