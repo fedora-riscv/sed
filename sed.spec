@@ -2,8 +2,8 @@
 
 Summary: A GNU stream text editor
 Name: sed
-Version: 4.8
-Release: 15%{?dist}
+Version: 4.9
+Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL: http://sed.sourceforge.net/
 Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.xz
@@ -29,11 +29,7 @@ that sed performs (substitutions, deletions, insertions, etc.) can be
 specified in a script file or from the command line.
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-
+%autosetup -p1
 
 sed -e 's/1729576/EPERM/' \
     -i gnulib-tests/test-{strerror_r,perror2}.c
@@ -65,6 +61,11 @@ rm -f ${RPM_BUILD_ROOT}/%{_infodir}/dir
 %{_mandir}/man1/sed.1*
 
 %changelog
+* Tue Jan 30 2024 Paolo Bonzini <pbonzini@redhat.com> - 4.9-1
+- Rebase to 4.9
+- Update downstream patches
+- Resolves: rhbz#2140486
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

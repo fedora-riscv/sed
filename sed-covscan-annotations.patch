@@ -1,33 +1,31 @@
-From 87f411a001394948183aaf389c711f3837c361b5 Mon Sep 17 00:00:00 2001
-From: Jakub Martisko <jamartis@redhat.com>
-Date: Mon, 15 Nov 2021 16:06:54 +0100
-Subject: [PATCH] covscan annotations
+From 7dbe9c0c2b3f2cac602ce352cad11dab4defe896 Mon Sep 17 00:00:00 2001
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Tue, 30 Jan 2024 10:41:40 +0100
+Subject: [PATCH 3/3] covscan annotations
+Content-Type: text/plain; charset=UTF-8
 
 ---
- lib/malloca.c | 3 ++-
+ lib/malloca.c | 1 +
  sed/compile.c | 2 ++
- sed/utils.c   | 1 +
- 3 files changed, 5 insertions(+), 1 deletion(-)
+ 2 files changed, 3 insertions(+)
 
 diff --git a/lib/malloca.c b/lib/malloca.c
-index 975b166..36e2342 100644
+index 1e19978..11783b4 100644
 --- a/lib/malloca.c
 +++ b/lib/malloca.c
-@@ -64,7 +64,8 @@ mmalloca (size_t n)
+@@ -71,6 +71,7 @@ mmalloca (size_t n)
               [mem, mem + nplus).  */
-           ((small_t *) p)[-1] = p - mem;
+           p[-1] = offset;
            /* p ≡ sa_alignment_max mod 2*sa_alignment_max.  */
--          return p;
-+          /* cppcheck-suppress memleak */ 
-+	  return p;
++          /* cppcheck-suppress memleak */
+           return p;
          }
      }
-   /* Out of memory.  */
 diff --git a/sed/compile.c b/sed/compile.c
-index 8321d68..df42794 100644
+index f96fbca..52759a5 100644
 --- a/sed/compile.c
 +++ b/sed/compile.c
-@@ -829,6 +829,7 @@ setup_replacement (struct subst *sub, const char *text, size_t length)
+@@ -830,6 +830,7 @@ setup_replacement (struct subst *sub, const char *text, size_t length)
  
    tail->next = NULL;
    sub->replacement = root.next;
@@ -35,26 +33,14 @@ index 8321d68..df42794 100644
  }
  
  static void
-@@ -1312,6 +1313,7 @@ compile_program (struct vector *vector)
+@@ -1328,6 +1329,7 @@ compile_program (struct vector *vector)
                    bad_prog (_(Y_CMD_LEN));
  
                  IF_LINT (free (src_lens));
-+		/* coverity [leaked_storage] */
++                /* coverity [leaked_storage] */
                }
              else
                {
-diff --git a/sed/utils.c b/sed/utils.c
-index 371d5a9..0d68f60 100644
---- a/sed/utils.c
-+++ b/sed/utils.c
-@@ -294,6 +294,7 @@ do_ck_fclose (FILE *fp)
-   clearerr (fp);
- 
-   if (fclose (fp) == EOF)
-+    /* coverity[pass_freed_arg] */
-     panic ("couldn't close %s: %s", utils_fp_name (fp), strerror (errno));
- }
- 
 -- 
-2.33.0
+2.43.0
 
