@@ -3,7 +3,7 @@
 Summary: A GNU stream text editor
 Name: sed
 Version: 4.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later
 URL: http://sed.sourceforge.net/
 Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.xz
@@ -20,7 +20,11 @@ BuildRequires: perl(FileHandle)
 #   invalid-mb-seq-UMR.sh: skipped test: locale 'ja_JP' is buggy
 #   mb-charclass-non-utf8.sh: skipped test: ja_JP shift-jis locale not found
 BuildRequires: glibc-langpack-el, glibc-langpack-en
-BuildRequires: glibc-langpack-ru, valgrind
+BuildRequires: glibc-langpack-ru
+
+%ifarch %{valgrind_arches}
+BuildRequires: valgrind
+%endif
 
 Provides: /bin/sed
 
@@ -64,6 +68,9 @@ rm -f ${RPM_BUILD_ROOT}/%{_infodir}/dir
 %{_mandir}/man1/sed.1*
 
 %changelog
+* Mon Apr 22 2024 David Abdurachmanov <davidlt@rivosinc.com> - 4.9-2
+- Properly check valgrind arches (riscv64 is not ported)
+
 * Tue Jan 30 2024 Paolo Bonzini <pbonzini@redhat.com> - 4.9-1
 - Rebase to 4.9
 - Update downstream patches
